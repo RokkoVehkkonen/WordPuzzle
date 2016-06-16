@@ -15,18 +15,17 @@
                   
       $scope.getNewWord = function(){
                 
-          var qstring = "page.php?command=getNewWord";
-          
-
-        //mock
-        $scope.rightWord = 'island';
+         $http.get('http://randomword.setgetgo.com/get.php')
+          .then(function(response) {
+            $scope.rightWord = response.data.toLowerCase();
+ 
+            $scope.mangledWord = mangle($scope.rightWord);
+            $scope.userWord = '';  
+            $scope.lastUserWord = '';
+            $scope.maxWordScore = getMaxScore($scope.rightWord.length);
+            $scope.wordScore = $scope.maxWordScore;
+       });
         
-        
-        $scope.mangledWord = mangle($scope.rightWord);
-        $scope.userWord = '';  
-        $scope.lastUserWord = '';
-        $scope.maxWordScore = getMaxScore($scope.rightWord.length);
-        $scope.wordScore = $scope.maxWordScore;
       } 
       
       $scope.newGame = function(){
@@ -43,8 +42,26 @@
       
       function mangle(word){
           
-          //mock
-          return 'ainlds';          
+          var w = new String(word);
+          var retString = '';
+          
+          
+          while (w.length > 1){
+          
+            var rand = Math.floor(Math.random() * w.length)
+            
+            retString += w[rand];
+            
+            if (rand == w.length - 1)
+              w = w.slice(0, rand);
+            else  
+              w = w.slice(0, rand) + w.slice(rand + 1);
+            
+          }
+          
+          retString += w[0];
+          
+          return retString;          
       } 
 
       $scope.userWordChanged = function(){
