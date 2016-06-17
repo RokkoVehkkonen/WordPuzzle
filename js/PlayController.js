@@ -6,14 +6,21 @@
       $scope.gameDuration = 40000;
       $scope.timeLeft = null;
 
-      $scope.wordScore = null;
+      $scope.wordScore = 0;
       $scope.maxWordScore = null;
       $scope.rightWord = null;
       $scope.userWord = null;
       $scope.lastUserWord = null;
       $scope.mangledWord = null;
-                  
+      
+      $scope.playerId = 695;  
+      $scope.playerScore = null;    
+      
+      
+            
       $scope.getNewWord = function(){
+             
+         $scope.gameScore += $scope.wordScore;    
                 
          $http.get('http://randomword.setgetgo.com/get.php')
           .then(function(response) {
@@ -27,10 +34,28 @@
        });
         
       } 
+
+      $scope.getPlayerScore = function(){
+                
+         var qs = 'http://www.techlinx.info/scorefeed.php?command=getScore&id=' + $scope.playerId;       
+                
+         $http.get(qs)
+          .then(function(response) {
+            $scope.playerScore = response.data[0].Score;
+       });
+        
+      } 
+
       
       $scope.newGame = function(){
+        
+        $scope.getPlayerScore();
+      
         $scope.timeLeft = $scope.gameDuration;
         $scope.gameScore = 0;
+        
+        $scope.getNewWord(); 
+
       }      
       
       function getMaxScore(length){
@@ -66,7 +91,7 @@
 
       $scope.userWordChanged = function(){
            
-        if ($scope.lastUserWord.length >= $scope.userWord.length && $scope.wordScope > 0)
+        if ($scope.lastUserWord.length >= $scope.userWord.length && $scope.wordScore > 0)
           $scope.wordScore --;           
           
         if ($scope.userWord.toLowerCase() == $scope.rightWord)
@@ -76,7 +101,6 @@
                     
       } 
  
-      $scope.getNewWord(); 
-          
+      $scope.newGame();     
   });
      
