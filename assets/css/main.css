@@ -109,6 +109,12 @@ a:after {
   width:100%;
 }
 
+.addscore-well{
+  padding: 8px 0px 0px 8px;
+	height: 42px;
+  background-color: #ffb600;  
+}
+
 .simpleinput {
 	height: 42px;
 	font-size: 18px;
