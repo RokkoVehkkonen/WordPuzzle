@@ -1,6 +1,5 @@
    
    wordPuzzleApp.controller('PlayController', function($scope, $http) {
-      $scope.playerTotalScore = null;
       
       $scope.gameScore = 0;
       $scope.gameDuration = 40000;
@@ -13,14 +12,19 @@
       $scope.lastUserWord = null;
       $scope.mangledWord = null;
       
-      $scope.playerId = 695;  
+      $scope.playerId = 698;  
       $scope.playerScore = null;    
       
       
             
       $scope.getNewWord = function(){
              
-         $scope.gameScore += $scope.wordScore;    
+         if ($scope.wordScore > 0){
+           $scope.gameScore += $scope.wordScore;
+           $scope.playerScore += $scope.wordScore;    
+            
+           setPlayerScore(); 
+         }    
                 
          $http.get('http://randomword.setgetgo.com/get.php')
           .then(function(response) {
@@ -35,21 +39,33 @@
         
       } 
 
-      $scope.getPlayerScore = function(){
+      function getPlayerScore(){
                 
          var qs = 'http://www.techlinx.info/scorefeed.php?command=getScore&id=' + $scope.playerId;       
                 
          $http.get(qs)
           .then(function(response) {
-            $scope.playerScore = response.data[0].Score;
+            $scope.playerScore = parseInt(response.data[0].Score);
        });
         
       } 
+      
+      function setPlayerScore(){
+        var data = $.param({ id: $scope.playerId, value: $scope.playerScore });
+        
+        $http({
+            method: 'POST',
+            url: 'http://www.techlinx.info/scorefeed.php?command=setScore',
+            data: data,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });     
+                
+      } 
 
       
-      $scope.newGame = function(){
+      function newGame(){
         
-        $scope.getPlayerScore();
+        getPlayerScore();
       
         $scope.timeLeft = $scope.gameDuration;
         $scope.gameScore = 0;
@@ -101,6 +117,6 @@
                     
       } 
  
-      $scope.newGame();     
+      newGame();     
   });
      
