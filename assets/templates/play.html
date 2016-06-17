@@ -1,6 +1,27 @@
-<div class="row">
-  <div class="stdmargin">
-    <h1 name="mangledWord" type="text"  class="form-control" id="mangledWord" >{{mangledWord}}</h1>
-    <input name="userWord" ng-model="userWord" type="text"  class="form-control" id="userWord" ng-change="userWordChanged()"/>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <p>total score: {{playerScore}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <big>{{mangledWord}}</big> ({{rightWord}})
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <input name="userWord" ng-model="userWord" type="text"  class="form-control" id="userWord" ng-change="userWordChanged()"/>
+      </div>
+      <div class="col-sm-2">
+        <div class="well addscore-well"> adds <span class="badge">{{wordScore}}</span></div>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-sm-4">
+        <p>game score: {{gameScore}}</p>
+      </div>
+    </div>
   </div>
-</div>
+
