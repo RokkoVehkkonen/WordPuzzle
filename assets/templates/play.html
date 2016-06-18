@@ -1,28 +1,27 @@
 <div class="container">
-    <div class="row">
-      <div class="col-sm-4">
-        <p>total score: {{playerScore}}</p>
+
+<div class="row stdmargin">
+  <div class="panel panel-default">
+    <div class="panel-heading">time left: {{timeLeft}}</div>
+    <div class="panel-body">
+      <div class="row">
+          <div class="stdmargin">{{mangledWord}} <span class="badge">{{rightWord}}</span> </div>
       </div>
+      <div class="row">
+        <div class="stdmargin">
+          <input name="userWord" ng-model="userWord" type="text"  class="form-control" id="userWord" ng-change="userWordChanged()"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="stdmargin addscore">
+          adds {{wordScore}}
+        </div>
+      </div>
+        
     </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <big>{{mangledWord}}</big> ({{rightWord}})
-      </div>
+    <div class="panel-footer">
+      total score: {{playerScore}} - game score: {{gameScore}}
     </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <input name="userWord" ng-model="userWord" type="text"  class="form-control" id="userWord" ng-change="userWordChanged()"/>
-      </div>
-      <div class="col-sm-2">
-        <div class="well addscore-well"> adds <span class="badge">{{wordScore}}</span></div>
-      </div>
-    </div>
-     <div class="row">
-      <div class="col-sm-4">
-        <p>game score: {{gameScore}}</p>
-      </div>
-      <div class="col-sm-4">
-        <p>time left: {{timeLeft}}</p>
-      </div>
-    </div>
+  </div>
+</div>
 </div>
