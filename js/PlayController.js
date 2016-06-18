@@ -2,7 +2,7 @@
    wordPuzzleApp.controller('PlayController', function($scope, $http, $interval, $location) {
       
       $scope.gameScore = 0;
-      $scope.gameDuration = 40000;
+      $scope.gameDuration = 4000;
       $scope.timeLeft = null;
 
       $scope.wordScore = 0;
@@ -80,7 +80,7 @@
             
             var timePlayed = d - startTime;            
             
-            if (timePlayed >= 40000)
+            if (timePlayed >= $scope.gameDuration)
               stopGame();
 
             $scope.timeLeft = Math.floor(($scope.gameDuration - timePlayed) / 1000);
@@ -94,7 +94,7 @@
             $interval.cancel(stop);
             stop = undefined;
             
-            $location.path( "http://www.fender.com" );
+            $location.path( "gameover" );
           }
       };
       
