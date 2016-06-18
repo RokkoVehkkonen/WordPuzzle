@@ -1,5 +1,5 @@
    
-   wordPuzzleApp.controller('PlayController', function($scope, $http) {
+   wordPuzzleApp.controller('PlayController', function($scope, $http, $interval, $location) {
       
       $scope.gameScore = 0;
       $scope.gameDuration = 40000;
@@ -15,7 +15,8 @@
       $scope.playerId = 698;  
       $scope.playerScore = null;    
       
-      
+      var stop;
+      var startTime = null;
             
       $scope.getNewWord = function(){
              
@@ -66,18 +67,40 @@
       function newGame(){
         
         getPlayerScore();
-      
-        $scope.timeLeft = $scope.gameDuration;
+        $scope.getNewWord(); 
+     
+        $scope.timeLeft = $scope.gameDuration / 1000;
         $scope.gameScore = 0;
         
-        $scope.getNewWord(); 
+        startTime = new Date().getTime();
+        
+        stop = $interval(function() {
+            
+            var d = new Date().getTime();
+            
+            var timePlayed = d - startTime;            
+            
+            if (timePlayed >= 40000)
+              stopGame();
 
+            $scope.timeLeft = Math.floor(($scope.gameDuration - timePlayed) / 1000);
+
+              
+          }, 100);
       }      
+ 
+      function stopGame() {
+          if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
+            
+            $location.path( "http://www.fender.com" );
+          }
+      };
       
       function getMaxScore(length){
       
-        var max = Math.floor(Math.pow(1.95,(length/3)));
-        
+        var max = Math.floor(Math.pow(1.95,(length/3)));       
         return max;
       }
       
