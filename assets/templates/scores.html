@@ -1,12 +1,23 @@
 <div class="container">
   <div class="row">
-      <div class="col-sm-4">
-        <a href="#play">Play!</a>
+      <div class="span4 offset4 centered stdmargin">
+        <a class="btn btn-default" href="#play">Play!</a>
       </div>        
   </div>
+
   <div class="row">
-    <ul class="list-group">
-        <li ng-repeat="score in scores" class="list-group-item" ng-include="'assets/templates/score.html'"> </li>
-    </ul>
+    <div class="span4 offset4">
+    
+      <div class="panel panel-default">
+        <div class="panel-heading">Hall of Fame</div>
+        <div class="panel-body">
+          <ul class="list-group">
+              <li ng-repeat="score in scores" class="list-group-item" ng-include="'assets/templates/score.html'"> </li>
+          </ul>
+        </div>
+      </div>
+    
+    </div>
   </div>
+  
 </div>
