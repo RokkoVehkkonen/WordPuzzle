@@ -2,7 +2,7 @@
    wordPuzzleApp.controller('PlayController', function($scope, $http, $interval, $location) {
       
       $scope.gameScore = 0;
-      $scope.gameDuration = 4000;
+      $scope.gameDuration = 40000;
       $scope.timeLeft = null;
 
       $scope.wordScore = 0;
